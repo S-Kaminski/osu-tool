@@ -1,0 +1,34 @@
+﻿<Window x:Class="osu_tool.MainWindow"
+        x:Name="MainWindowInstance"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:osu_tool"
+        xmlns:view="clr-namespace:osu_tool.View"
+        xmlns:viewModel="clr-namespace:osu_tool.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{Binding ViewModel, ElementName=MainWindowInstance}">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
+            <view:SettingsView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:BeatmapsViewModel}">
+            <view:BeatmapsView/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <TabControl x:Name="tabs" 
+                    Margin="10"
+                    ItemsSource="{Binding Pages}">
+            <TabControl.ItemContainerStyle>
+                <Style TargetType="TabItem">
+                    <Setter Property="Header" Value="{Binding TabName}"/>
+                </Style>
+            </TabControl.ItemContainerStyle>
+        </TabControl>
+    </Grid>
+</Window>
