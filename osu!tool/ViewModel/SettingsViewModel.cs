@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -23,6 +24,17 @@ namespace osu_tool.ViewModel
                 OnPropertyChanged("Path");
             }
         }
+        public bool PathValidation
+        {
+            get
+            {
+                if (Regex.IsMatch(Path, @"^(?:[a-zA-Z]\:|\\\\[\w\.]+\\[\w.$]+)\\(?:[\w]+\\)*\w([\w.])+$"))
+                {
+                    return true;
+                }
+                else return false;
+            }
+        }
 
         #region ICommand saveCommand
         private ICommand saveCommand;
@@ -36,7 +48,7 @@ namespace osu_tool.ViewModel
                     {
                         Settings.SettingsProp = settingsModel;
                     },
-                    argument=> (!string.IsNullOrEmpty(Path))
+                    argument=> (PathValidation)
                     );
                 }
                 return saveCommand;
@@ -87,6 +99,7 @@ namespace osu_tool.ViewModel
 
         #endregion
 
+        
 
     }
 }
