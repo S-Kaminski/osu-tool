@@ -12,8 +12,10 @@ namespace osu_tool.ViewModel
 {
     public class SettingsViewModel : BaseViewModel
     {
-        private readonly SettingsModel settingsModel = Settings.SettingsProp;
         public string TabName { get { return "Settings"; } }
+
+        private readonly SettingsModel settingsModel = Settings.SettingsProp;
+        
 
         public string Path
         {
@@ -28,6 +30,7 @@ namespace osu_tool.ViewModel
         {
             get
             {
+                //checks for path validation -> these characters are unusable in paths (windows)
                 if (Regex.IsMatch(Path, @"^(?:[a-zA-Z]\:|\\\\[\w\.]+\\[\w.$]+)\\(?:[\w]+\\)*\w([\w.])+$"))
                 {
                     return true;
@@ -69,12 +72,12 @@ namespace osu_tool.ViewModel
                     {
                         string dir;
                         var processes = System.Diagnostics.Process.GetProcessesByName("osu!");
-                        if (processes.Length > 0)
+                        if (processes.Length > 0) //gets path if osu!process is running
                         {
                             dir = processes[0].Modules[0].FileName;
                             dir = dir.Remove(dir.LastIndexOf('\\'));
                         }
-                        else
+                        else //if not running, gets it from RegEdit
                         {
                             using (Microsoft.Win32.RegistryKey osureg = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey("osu\\DefaultIcon"))
                             {

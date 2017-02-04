@@ -7,7 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="162,90,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="button" Content="Button" Command="{Binding Search}"  HorizontalAlignment="Left" Margin="162,90,0,0" VerticalAlignment="Top" Width="75"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="50" Margin="10,10,0,0" VerticalAlignment="Top" Width="280">
+            <Label x:Name="label" Content="Artist or title:" Margin="2"/>
+            <TextBox x:Name="textBox" Text="{Binding Query}" HorizontalAlignment="Left" Height="23" Margin="3,3,3,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148"/>
+        </StackPanel>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Left" Height="178" Margin="25,112,0,0" TextWrapping="Wrap" Text="{Binding List, Mode=OneWay}" VerticalAlignment="Top" Width="247"/>
 
 
     </Grid>
